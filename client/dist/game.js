@@ -1,55 +1,50 @@
-export class Object {
-    constructor(name, scale = [1, 1], position = [0, 0], rotation = 0) {
-        this.name = name;
-        this.scale = scale;
-        this.position = position;
-        this.rotation = rotation;
-    }
-}
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import SpriteSheet from "./sprite_sheet.js";
+import { UIContainer } from "./ui.js";
+import { Scene, Object } from "./scene.js";
 export default class Game {
-    constructor(canvas, sprite_sheet) {
-        this.canvas = canvas;
-        this.context = canvas.getContext("2d");
-        this.context.imageSmoothingEnabled = false;
-        this.sprite_sheet = sprite_sheet;
-        this.objects = [];
-        this.onResize();
-        window.addEventListener("resize", this.onResize.bind(this));
+    constructor(gameElement) {
+        this.gameElement = gameElement;
+        this.sceneElement = document.createElement("canvas");
+        this.sceneElement.id = "gameScene";
+        this.uiElement = document.createElement("div");
+        this.uiElement.id = "gameUI";
+        this.gameElement.appendChild(this.sceneElement);
+        this.gameElement.appendChild(this.uiElement);
+        this.scene = null;
+        this.ui = null;
     }
     /**
-     * Method to be called when the window is resized
+     * Loading behavior of game
      */
-    onResize() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        // Makes canvas (0, 0) at the middle of the window
-        this.context.translate(this.canvas.width / 2, this.canvas.height / 2);
-        // Must redraw after window resize
-        this.draw();
+    load() {
+        return __awaiter(this, void 0, void 0, function* () {
+            /* Custom Code For The Game Goes Below Here*/
+            const spriteSheet = new SpriteSheet;
+            yield spriteSheet.load("assets/sprite_sheet1.png", "assets/sprite_sheet1.json");
+            console.log("Sprite sheet loaded successfully!");
+            this.scene = new Scene(this.sceneElement, spriteSheet);
+            this.ui = new UIContainer(this.uiElement);
+            this.scene.addObject(new Object("ONE", [20, 20], [0, 0]));
+        });
     }
     /**
-     * Scales the scene view
+     * Renders the game
      */
-    scaleView(scale = [1, 1]) {
-        this.context.scale(scale[0], scale[1]);
-    }
-    /**
-     * Adds an object to the scene
-     * @param sprite - A new scene object
-     */
-    addObject(sprite) {
-        this.objects.push(sprite);
-    }
-    /**
-     * Draws the game on the screen
-     * @param scale  - The scaling of the entire window
-     * @param offset - Offsets the viewing area by some amount
-     */
-    draw(offset = [0, 0]) {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        for (let i = 0; i < this.objects.length; i++) {
-            let object = this.objects[i];
-            this.sprite_sheet.draw(this.context, object.name, [object.position[0] + offset[0], object.position[1] + offset[1]], object.scale, object.rotation, false);
+    render() {
+        if (this.scene) {
+            this.scene.render();
+        }
+        if (this.ui) {
+            this.ui.render();
         }
     }
 }

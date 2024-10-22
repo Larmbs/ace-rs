@@ -1,24 +1,7 @@
 import SpriteSheet from "./sprite_sheet.js";
 import { UI, UIContainer } from "./ui.js";
-import { Scene } from "./scene.js";
-export class Object {
-  name: string;
-  scale: [number, number];
-  position: [number, number];
-  rotation: number;
+import { Scene, Object } from "./scene.js";
 
-  constructor(
-    name: string,
-    scale: [number, number] = [1, 1],
-    position: [number, number] = [0, 0],
-    rotation: number = 0
-  ) {
-    this.name = name;
-    this.scale = scale;
-    this.position = position;
-    this.rotation = rotation;
-  }
-}
 export default class Game {
   private gameElement: HTMLElement;
   private sceneElement: HTMLCanvasElement;
@@ -29,9 +12,9 @@ export default class Game {
   constructor(gameElement: HTMLElement) {
     this.gameElement = gameElement;
 
-    this.sceneElement = new HTMLCanvasElement;
+    this.sceneElement = document.createElement("canvas");
     this.sceneElement.id = "gameScene";
-    this.uiElement = new HTMLDivElement;
+    this.uiElement = document.createElement("div");
     this.uiElement.id = "gameUI";
 
     this.gameElement.appendChild(this.sceneElement);
@@ -39,16 +22,24 @@ export default class Game {
 
     this.scene = null;
     this.ui = null;
+  }
 
+  /**
+   * Loading behavior of game
+   */
+  async load() {
     /* Custom Code For The Game Goes Below Here*/
     
     const spriteSheet = new SpriteSheet;
-    spriteSheet.load(
+    await spriteSheet.load(
       "assets/sprite_sheet1.png",
       "assets/sprite_sheet1.json"
     );
-    console.log("Sprite sheet loaded successfully!");    this.scene = new Scene(this.sceneElement, new SpriteSheet);
+    console.log("Sprite sheet loaded successfully!");
+    this.scene = new Scene(this.sceneElement, spriteSheet);
     this.ui = new UIContainer(this.uiElement);
+
+    this.scene.addObject(new Object("ONE", [20, 20], [0, 0]))
   }
 
   /**

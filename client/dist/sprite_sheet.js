@@ -69,7 +69,7 @@ export default class SpriteSheet {
      * @param border - Draws an outline around sprite if true
      * @returns
      */
-    draw(ctx, sprite_name, position, scale = [1, 1], // Default scale is 1 (no scaling)
+    render(ctx, sprite_name, position, scale = [1, 1], // Default scale is 1 (no scaling)
     rotation = 0, // Default rotation is 0 (no rotation)
     border = false // Default border is false
     ) {

@@ -7,20 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import SpriteSheet from "./sprite_sheet.js";
 import Game from "./game.js";
-import { Object } from "./game.js";
 // Main test function
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const spriteSheet = new SpriteSheet();
-        yield spriteSheet.load("assets/sprite_sheet1.png", "assets/sprite_sheet1.json");
-        console.log("Sprite sheet loaded successfully!");
-        const game = new Game(document.getElementById("gameCanvas"), spriteSheet);
-        game.scaleView([1, 1]);
-        game.addObject(new Object("ONE", [50, 50]));
-        game.addObject(new Object("TWO", [10, 15], [45, 70]));
-        game.draw();
+        const game = new Game(document.getElementById("game"));
+        yield game.load();
+        game.render();
     });
 }
 // Run the main test
