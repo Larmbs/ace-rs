@@ -101,4 +101,3 @@ export default class SpriteSheet {
         ctx.restore();
     }
 }
-//# sourceMappingURL=sprite_sheet.js.map

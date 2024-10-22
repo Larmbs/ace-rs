@@ -22,6 +22,7 @@ export default class Game {
     onResize() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+        // Makes canvas (0, 0) at the middle of the window
         this.context.translate(this.canvas.width / 2, this.canvas.height / 2);
         // Must redraw after window resize
         this.draw();
@@ -52,4 +53,3 @@ export default class Game {
         }
     }
 }
-//# sourceMappingURL=game.js.map

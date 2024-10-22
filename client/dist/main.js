@@ -25,4 +25,3 @@ function main() {
 }
 // Run the main test
 main().catch(console.error);
-//# sourceMappingURL=main.js.map
