@@ -29,8 +29,8 @@ export default class Game {
    */
   async load() {
     /* Custom Code For The Game Goes Below Here*/
-    
-    const spriteSheet = new SpriteSheet;
+
+    const spriteSheet = new SpriteSheet();
     await spriteSheet.load(
       "assets/sprite_sheet1.png",
       "assets/sprite_sheet1.json"
@@ -39,14 +39,18 @@ export default class Game {
     this.scene = new Scene(this.sceneElement, spriteSheet);
     this.ui = new UIContainer(this.uiElement);
 
-    this.scene.addObject(new Object("JET", [20, 20], [0, 0]))
+    this.scene.addObject(new Object("JET", [20, 20], [0, 0], 0.1));
   }
 
   /**
    * Renders the game
    */
   render() {
-    if (this.scene) {this.scene.render();}
-    if (this.ui) {this.ui.render();}
+    if (this.scene) {
+      this.scene.render();
+    }
+    if (this.ui) {
+      this.ui.render();
+    }
   }
 }

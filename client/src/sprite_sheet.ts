@@ -96,7 +96,7 @@ export default class SpriteSheet {
     ctx.translate(position[0], position[1]);
 
     // Apply rotation
-    ctx.rotate(rotation);
+    ctx.rotate(-rotation);
 
     ctx.scale(scale[0], scale[1]);
 

@@ -44,11 +44,9 @@ export class ActiveObject {
 
   /**
    * Object gets updated
-   * @param dt 
+   * @param dt
    */
-  update(dt: number) {
-
-  }
+  update(dt: number) {}
 }
 
 /**
@@ -126,10 +124,10 @@ export class Scene {
    */
   update(dt: number) {
     for (let i = 0; i < this.objects.length; i++) {
-        let object = this.objects[i];
-        if (object instanceof ActiveObject) {
-            object.update(dt);
-        }
+      let object = this.objects[i];
+      if (object instanceof ActiveObject) {
+        object.update(dt);
+      }
     }
   }
 

@@ -33,7 +33,7 @@ export default class Game {
             console.log("Sprite sheet loaded successfully!");
             this.scene = new Scene(this.sceneElement, spriteSheet);
             this.ui = new UIContainer(this.uiElement);
-            this.scene.addObject(new Object("JET", [20, 20], [0, 0]));
+            this.scene.addObject(new Object("JET", [20, 20], [0, 0], 0.1));
         });
     }
     /**

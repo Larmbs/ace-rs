@@ -83,7 +83,7 @@ export default class SpriteSheet {
         // Translate to the position where we want to draw the sprite
         ctx.translate(position[0], position[1]);
         // Apply rotation
-        ctx.rotate(rotation);
+        ctx.rotate(-rotation);
         ctx.scale(scale[0], scale[1]);
         // Draw the border before scaling
         if (border) {
