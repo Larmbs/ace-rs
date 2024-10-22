@@ -1,3 +1,6 @@
+/**
+ * Object that cannot move but is affected by scene offsets
+ */
 export class Object {
     constructor(name, scale = [1, 1], position = [0, 0], rotation = 0) {
         this.name = name;
@@ -6,6 +9,26 @@ export class Object {
         this.rotation = rotation;
     }
 }
+/**
+ * Object with physic properties that follows scene offset
+ */
+export class ActiveObject {
+    constructor(name, scale = [1, 1], position = [0, 0], rotation = 0) {
+        this.name = name;
+        this.scale = scale;
+        this.position = position;
+        this.rotation = rotation;
+    }
+    /**
+     * Object gets updated
+     * @param dt
+     */
+    update(dt) {
+    }
+}
+/**
+ * Object that is static and is not affected by scene offsets
+ */
 export class StaticObject {
     constructor(name, scale = [1, 1], position = [0, 0], rotation = 0) {
         this.name = name;
@@ -50,6 +73,17 @@ export class Scene {
         this.context.scale(scale[0], scale[1]);
     }
     /**
+     * Update
+     */
+    update(dt) {
+        for (let i = 0; i < this.objects.length; i++) {
+            let object = this.objects[i];
+            if (object instanceof ActiveObject) {
+                object.update(dt);
+            }
+        }
+    }
+    /**
      * Renders the objects onto the screen
      * @param offset - Offsets the viewing area by some amount
      */
@@ -59,7 +93,12 @@ export class Scene {
         // Draw objects
         for (let i = 0; i < this.objects.length; i++) {
             let object = this.objects[i];
-            this.sprite_sheet.render(this.context, object.name, [object.position[0] + offset[0], object.position[1] + offset[1]], object.scale, object.rotation, false);
+            if (object instanceof StaticObject) {
+                this.sprite_sheet.render(this.context, object.name, [object.position[0] + offset[0], object.position[1] + offset[1]], object.scale, object.rotation, false);
+            }
+            else if (object instanceof Object || ActiveObject) {
+                this.sprite_sheet.render(this.context, object.name, [object.position[0] + offset[0], object.position[1] + offset[1]], object.scale, object.rotation, false);
+            }
         }
     }
 }
