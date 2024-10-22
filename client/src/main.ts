@@ -11,14 +11,8 @@ async function main() {
   );
   console.log("Sprite sheet loaded successfully!");
 
-  const game = new Game(
-    document.getElementById("gameCanvas") as HTMLCanvasElement,
-    spriteSheet
-  );
-  game.scaleView([1, 1]);
-  game.addObject(new Object("ONE", [50, 50]));
-  game.addObject(new Object("TWO", [10, 15], [45, 70]));
-  game.draw();
+  const game = new Game(document.getElementById("game") as HTMLCanvasElement);
+  game.render();
 }
 
 // Run the main test

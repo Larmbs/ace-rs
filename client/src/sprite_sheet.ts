@@ -74,7 +74,7 @@ export default class SpriteSheet {
    * @param border - Draws an outline around sprite if true
    * @returns
    */
-  draw(
+  render(
     ctx: CanvasRenderingContext2D,
     sprite_name: string,
     position: [number, number],
